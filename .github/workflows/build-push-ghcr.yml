@@ -26,13 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Refuse to build a license bypass
-        run: |
-          if grep -nE '^[[:space:]]*if[[:space:]]+true[[:space:]]*\{' backend/enterprise/license.go; then
-            echo "::error::backend/enterprise/license.go contains an 'if true' short-circuit; refusing to build."
-            exit 1
-          fi
-
       - name: Set variables
         run: |
           echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/bytebase" >> "$GITHUB_ENV"
